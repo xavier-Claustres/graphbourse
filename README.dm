@@ -44,6 +44,7 @@ ActionEffetDouble clic gauche sur le graphique intradayAfficher / masquer le gra
 
 Diagrammes
 États de la fenêtre
+```mermaid
 mermaidstateDiagram-v2
     [*] --> STATE_COLLAPSED : démarrage
     STATE_COLLAPSED --> STATE_MEDIUM : double clic intraday
@@ -57,8 +58,9 @@ mermaidstateDiagram-v2
         GrapheDuree --> Effecteurs : clic graphe durée / btnToggle
         Effecteurs --> GrapheDuree : clic graphe durée / btnToggle
     }
-
+```
 Séquence de démarrage
+```mermaid
 mermaidsequenceDiagram
     participant Main as wWinMain
     participant Reg as Registre
@@ -83,8 +85,9 @@ mermaidsequenceDiagram
             Main->>Main: LaunchInstance(i) si mort
         end
     end
-
+```
 Cycle de rafraîchissement intraday
+```mermaid
 mermaidsequenceDiagram
     participant Timer as WM_TIMER (10s)
     participant DL as DownloadAndDisplayImage
@@ -102,8 +105,9 @@ mermaidsequenceDiagram
     DL->>DL: StretchBitmap(hRaw, targetW, targetH)
     DL->>UI: STM_SETIMAGE
     UI-->>UI: InvalidateRect / UpdateWindow
-
+```
 Séquence de téléchargement durée
+```mermaid
 mermaidsequenceDiagram
     participant User as Utilisateur
     participant Win as WindowProc
@@ -117,8 +121,9 @@ mermaidsequenceDiagram
     DL->>URLMon: GET /p.php?...&p=P&t=49&dm=DM&vol=0
     URLMon-->>DL: IStream (~5 Ko)
     DL->>UI: STM_SETIMAGE
-
+```
 Suppression d'une instance
+```mermaid
 mermaidsequenceDiagram
     participant User as Utilisateur
     participant Sub as IntraSubclassProc
@@ -136,8 +141,9 @@ mermaidsequenceDiagram
     Note over Mutex: slot N détecté libre par les autres instances
     Menu->>Win: DestroyWindow → WM_DESTROY
     Win->>Win: PostQuitMessage(0)
-
+```
 DoLayout — double mode MEASURE / PLACE
+```mermaid
 mermaidflowchart TD
     A[UpdateLayout appelé] --> B{refreshResources ?}
     B -- oui --> C[Recréer police + invalider bitmaps]
@@ -156,8 +162,9 @@ mermaidflowchart TD
     M -- non --> O[InvalidateRect / UpdateWindow]
     N --> O
     K -- non --> O
-
+```
 Gestion des instances — coordination par mutex
+```mermaid
 mermaidflowchart LR
     subgraph Processus A - slot 0
         MA[Mutex Instance_0\novert]
@@ -183,7 +190,7 @@ mermaidflowchart LR
     MR -- sérialise --> R0
     MR -- sérialise --> R1
     MR -- sérialise --> R2
-
+```
 Multi-instances
 Chaque instance est indépendante et peut afficher un indice ou une action différente. Les instances sont identifiées par un numéro de slot (0 à 31) et leur configuration (indice, position) est sauvegardée dans le registre Windows sous :
 HKEY_CURRENT_USER\Software\GraphiqueBourse\Instances
@@ -218,8 +225,7 @@ Prérequis
 Visual Studio 2019 ou supérieur (MSVC)
 SDK Windows 10 ou supérieur
 
-
----------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------
   actualisation de la liste des titres. https://www.boursedeparis.fr/cours/actions-paris
   aller sur la brique Marchés au comptant puis,
   sur Action la liste complete est dans le lien en haut sur la droite.
@@ -235,4 +241,4 @@ SDK Windows 10 ou supérieur
 
 ce projet date de 2007. Son utilité, les données de l'intraday n'ont que quelques seconde de retard.
 
----------------------------------------------------------------------------------------------------------------------------------------->
+-------------------------------------------------------------------------------------------------------------------------------
