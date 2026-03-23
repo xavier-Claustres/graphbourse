@@ -26,17 +26,7 @@ LibelléMarchéCAC 40FranceSBF 120FranceDAX 30AllemagneFTSE 100Royaume-UniS&P 50
 Forex
 PaireEUR/USDEUR/JPYEUR/GBPEUR/CHF
 Actions Paris
-Liste complète des actions de la Bourse de Paris — source : boursedeparis.fr → Marchés au comptant → Actions → liste complète.
-La liste couvre l'ensemble des valeurs du marché au comptant parisien, de 2CRSI à ZCI Limited.
-Mise à jour de la liste
-Dans Excel :
-
-Colonne A : Nom — colonne B : Symbole ADVFN
-Colonne E : ="L"""& A1 &"""," → génère le libellé
-Colonne F : ="L"""& B1 &"""," → génère le mnémonique
-Dans LABELS, échapper les apostrophes ' → \'
-Copier les colonnes E et F dans LABELS et MNEMOS
-Supprimer la virgule finale de chaque colonne
+Liste complète des actions de la Bourse de Paris
 
 
 Utilisation
@@ -45,7 +35,7 @@ ActionEffetDouble clic gauche sur le graphique intradayAfficher / masquer le gra
 Diagrammes
 États de la fenêtre
 ```mermaid
-mermaidstateDiagram-v2
+stateDiagram-v2
     [*] --> STATE_COLLAPSED : démarrage
     STATE_COLLAPSED --> STATE_MEDIUM : double clic intraday
     STATE_MEDIUM --> STATE_COLLAPSED : double clic intraday
@@ -61,7 +51,7 @@ mermaidstateDiagram-v2
 ```
 Séquence de démarrage
 ```mermaid
-mermaidsequenceDiagram
+sequenceDiagram
     participant Main as wWinMain
     participant Reg as Registre
     participant Mutex as Mutex système
@@ -88,7 +78,7 @@ mermaidsequenceDiagram
 ```
 Cycle de rafraîchissement intraday
 ```mermaid
-mermaidsequenceDiagram
+sequenceDiagram
     participant Timer as WM_TIMER (10s)
     participant DL as DownloadAndDisplayImage
     participant URLMon as URLOpenBlockingStreamW
@@ -108,7 +98,7 @@ mermaidsequenceDiagram
 ```
 Séquence de téléchargement durée
 ```mermaid
-mermaidsequenceDiagram
+sequenceDiagram
     participant User as Utilisateur
     participant Win as WindowProc
     participant DL as DownloadAndDisplayImage
@@ -124,7 +114,7 @@ mermaidsequenceDiagram
 ```
 Suppression d'une instance
 ```mermaid
-mermaidsequenceDiagram
+sequenceDiagram
     participant User as Utilisateur
     participant Sub as IntraSubclassProc
     participant Menu as ContextMenuIntraday
@@ -144,7 +134,7 @@ mermaidsequenceDiagram
 ```
 DoLayout — double mode MEASURE / PLACE
 ```mermaid
-mermaidflowchart TD
+flowchart TD
     A[UpdateLayout appelé] --> B{refreshResources ?}
     B -- oui --> C[Recréer police + invalider bitmaps]
     B -- non --> D
@@ -165,7 +155,7 @@ mermaidflowchart TD
 ```
 Gestion des instances — coordination par mutex
 ```mermaid
-mermaidflowchart LR
+flowchart TD
     subgraph Processus A - slot 0
         MA[Mutex Instance_0\novert]
     end
